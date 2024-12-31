@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import com.client.util.VoiceRecorder;
 
 public class MainLauncher extends Application {
 
@@ -28,6 +29,13 @@ public class MainLauncher extends Application {
         primaryStage.setOnCloseRequest(e -> Platform.exit());
     }
 
+    @Override
+    public void stop() {
+        // 关闭语音处理线程池
+        VoiceRecorder.shutdown();
+        Platform.exit();
+        System.exit(0);
+    }
 
     public static void main(String[] args) {
         launch(args);

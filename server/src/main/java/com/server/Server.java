@@ -7,6 +7,7 @@ import com.messages.Status;
 import com.messages.User;
 import com.server.dao.ChatMessageDAO;
 import com.server.dao.UserLoginDAO;
+import com.server.util.ThreadPoolUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,6 +40,7 @@ public class Server {
             e.printStackTrace();
         } finally {
             listener.close();
+            ThreadPoolUtil.shutdown();
         }
     }
 
@@ -63,51 +65,74 @@ public class Server {
         public void run() {
             logger.info("Attempting to connect a user...");
             try {
-                is = socket.getInputStream();
-                input = new ObjectInputStream(is);
-                os = socket.getOutputStream();
-                output = new ObjectOutputStream(os);
-
-                Message firstMessage = (Message) input.readObject();
-                checkDuplicateUsername(firstMessage);
-                writers.add(output);
-                sendNotification(firstMessage);
-                addToList();
-
-                // 记录用户登录
-                String clientIP = socket.getInetAddress().getHostAddress();
-                loginId = userLoginDAO.recordLogin(firstMessage.getName(), clientIP);
-
-                while (socket.isConnected()) {
-                    Message inputmsg = (Message) input.readObject();
-                    if (inputmsg != null) {
-                        logger.info(inputmsg.getType() + " - " + inputmsg.getName() + ": " + inputmsg.getMsg());
-                        switch (inputmsg.getType()) {
-                            case USER:
-                                chatMessageDAO.saveMessage(inputmsg);
-                                write(inputmsg);
-                                break;
-                            case VOICE:
-                                write(inputmsg);
-                                break;
-                            case CONNECTED:
-                                addToList();
-                                break;
-                            case STATUS:
-                                changeStatus(inputmsg);
-                                break;
-                        }
-                    }
-                }
-            } catch (SocketException socketException) {
-                logger.error("Socket Exception for user " + name);
-            } catch (DuplicateUsernameException duplicateException){
-                logger.error("Duplicate Username : " + name);
-            } catch (Exception e){
-                logger.error("Exception in run() method for user: " + name, e);
+                setupConnection();
+                processMessages();
+            } catch (Exception e) {
+                handleException(e);
             } finally {
                 closeConnections();
             }
+        }
+
+        private void setupConnection() throws IOException, ClassNotFoundException {
+            is = socket.getInputStream();
+            input = new ObjectInputStream(is);
+            os = socket.getOutputStream();
+            output = new ObjectOutputStream(os);
+
+            Message firstMessage = (Message) input.readObject();
+            checkDuplicateUsername(firstMessage);
+            writers.add(output);
+            sendNotification(firstMessage);
+            addToList();
+
+            String clientIP = socket.getInetAddress().getHostAddress();
+            loginId = userLoginDAO.recordLogin(firstMessage.getName(), clientIP);
+        }
+
+        private void processMessages() throws IOException, ClassNotFoundException {
+            while (socket.isConnected()) {
+                Message inputmsg = (Message) input.readObject();
+                if (inputmsg != null) {
+                    ThreadPoolUtil.getMessageExecutor().execute(() -> {
+                        try {
+                            processMessage(inputmsg);
+                        } catch (IOException e) {
+                            logger.error("Error processing message", e);
+                        }
+                    });
+                }
+            }
+        }
+
+        private void processMessage(Message inputmsg) throws IOException {
+            logger.info(inputmsg.getType() + " - " + inputmsg.getName() + ": " + inputmsg.getMsg());
+            switch (inputmsg.getType()) {
+                case USER:
+                    chatMessageDAO.saveMessage(inputmsg);
+                    write(inputmsg);
+                    break;
+                case VOICE:
+                    processVoiceMessage(inputmsg);
+                    break;
+                case CONNECTED:
+                    addToList();
+                    break;
+                case STATUS:
+                    changeStatus(inputmsg);
+                    break;
+            }
+        }
+
+        private void processVoiceMessage(Message inputmsg) throws IOException {
+            // 使用单独的线程处理语音消息
+            ThreadPoolUtil.getMessageExecutor().execute(() -> {
+                try {
+                    write(inputmsg);
+                } catch (IOException e) {
+                    logger.error("Error processing voice message", e);
+                }
+            });
         }
 
         private Message changeStatus(Message inputmsg) throws IOException {
