@@ -109,7 +109,7 @@
                <children>
                   <ImageView fx:id="userImageView" fitHeight="69.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/image.jpg" />
+                        <Image url="@../images/default.jpg" />
                      </image>
                      <HBox.margin>
                         <Insets left="10.0" top="10.0" />

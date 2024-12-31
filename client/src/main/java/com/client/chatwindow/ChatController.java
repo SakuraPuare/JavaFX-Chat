@@ -169,7 +169,7 @@ public class ChatController implements Initializable {
     }
 
     public void setImageLabel() throws IOException {
-        this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/image.jpg").toString()));
+        this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/default.jpg").toString()));
     }
 
     public void setOnlineLabel(String usercount) {
@@ -190,7 +190,7 @@ public class ChatController implements Initializable {
     /* Displays Notification when a user joins */
     public void newUserNotification(Message msg) {
         Platform.runLater(() -> {
-            Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture().toLowerCase() +".png").toString(),50,50,false,false);
+            Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture().toLowerCase() +".jpg").toString(),50,50,false,false);
             TrayNotification tray = new TrayNotification();
             tray.setTitle("新用户加入!");
             tray.setMessage(msg.getName() + " 已加入JavaFX聊天室!");

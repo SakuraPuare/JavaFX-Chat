@@ -1,0 +1,18 @@
+CREATE DATABASE IF NOT EXISTS chatapp;
+USE chatapp;
+
+CREATE TABLE IF NOT EXISTS chat_messages (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    sender VARCHAR(100) NOT NULL,
+    message TEXT,
+    message_type VARCHAR(20),
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS user_logins (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    logout_time TIMESTAMP NULL,
+    ip_address VARCHAR(50)
+); 

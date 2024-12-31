@@ -41,7 +41,7 @@
                <children>
                   <ImageView fx:id="Defaultview" fitHeight="93" fitWidth="93" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/image.jpg" />
+                        <Image url="@../images/default.jpg" />
                      </image>
                   </ImageView>
                </children>
@@ -49,7 +49,7 @@
             <ChoiceBox fx:id="imagePicker" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <items>
                   <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="默认头像" />
+                     <String fx:value="default" />
                   </FXCollections>
                </items>
             </ChoiceBox>

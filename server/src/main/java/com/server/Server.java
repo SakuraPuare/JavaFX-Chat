@@ -5,6 +5,8 @@ import com.messages.Message;
 import com.messages.MessageType;
 import com.messages.Status;
 import com.messages.User;
+import com.server.dao.ChatMessageDAO;
+import com.server.dao.UserLoginDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,6 +52,9 @@ public class Server {
         private OutputStream os;
         private ObjectOutputStream output;
         private InputStream is;
+        private long loginId;
+        private final ChatMessageDAO chatMessageDAO = new ChatMessageDAO();
+        private final UserLoginDAO userLoginDAO = new UserLoginDAO();
 
         public Handler(Socket socket) throws IOException {
             this.socket = socket;
@@ -69,12 +74,17 @@ public class Server {
                 sendNotification(firstMessage);
                 addToList();
 
+                // 记录用户登录
+                String clientIP = socket.getInetAddress().getHostAddress();
+                loginId = userLoginDAO.recordLogin(firstMessage.getName(), clientIP);
+
                 while (socket.isConnected()) {
                     Message inputmsg = (Message) input.readObject();
                     if (inputmsg != null) {
                         logger.info(inputmsg.getType() + " - " + inputmsg.getName() + ": " + inputmsg.getMsg());
                         switch (inputmsg.getType()) {
                             case USER:
+                                chatMessageDAO.saveMessage(inputmsg);
                                 write(inputmsg);
                                 break;
                             case VOICE:
@@ -225,6 +235,11 @@ public class Server {
             }
             logger.info("HashMap names:" + names.size() + " writers:" + writers.size() + " usersList size:" + users.size());
             logger.debug("closeConnections() method Exit");
+
+            // 记录用户登出
+            if (loginId != -1) {
+                userLoginDAO.recordLogout(loginId);
+            }
         }
     }
 }
