@@ -15,7 +15,6 @@
     -fx-graphic: url("../images/line.png");
     -fx-background-color: transparent;
     -fx-opacity: 1;
-
 }
 
 #MinimizedBtn:hover {
@@ -25,7 +24,7 @@
 #connectBtn{
     -fx-color: #ffffff;
     -fx-padding: 5px 20px;
-    -fx-background-color: linear-gradient(to bottom, #ffe49e 0%,#ffb700 3%,#ffad00 35%,#ff9000 97%,#e27f00 100%);
+    -fx-background-color: linear-gradient(to bottom, #FFE4E1 0%, #FFB6C1 3%, #FF69B4 35%, #FF1493 97%, #DB7093 100%);
     -fx-font-family: 'Open Sans', sans-serif;
     -fx-font-size: 12px;
     border-radius: 3px;
@@ -42,7 +41,7 @@
     -fx-padding: 5px 20px;
     -fx-spacing: 10px;
     -fx-start-margin: 10px;
-    -fx-background-color: linear-gradient(to bottom, #ffe49e 0%,#ffb700 3%,#ffad00 35%,#ff9000 97%,#e27f00 100%);
+    -fx-background-color: linear-gradient(to bottom, #ffb6c1 0%, #ff69b4 3%, #ff1493 35%, #db7093 97%, #ffe4e1 100%);
     -fx-font-family: 'Open Sans', sans-serif;
     -fx-cursor: hand;
 }

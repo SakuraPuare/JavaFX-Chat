@@ -106,39 +106,31 @@ public final class TrayNotification {
     }
 
     public void setNotificationType(NotificationType nType) {
-
         notificationType = nType;
-
         URL imageLocation = null;
         String paintHex = null;
 
         switch (nType) {
-
             case INFORMATION:
                 imageLocation = getClass().getResource("/tray/resources/info.png");
                 paintHex = "#2C54AB";
                 break;
-
             case NOTICE:
                 imageLocation = getClass().getResource("/tray/resources/notice.png");
                 paintHex = "#8D9695";
                 break;
-
             case SUCCESS:
                 imageLocation = getClass().getResource("/tray/resources/success.png");
-                paintHex = "#009961";
+                paintHex = "#FFB6C1";
                 break;
-
             case WARNING:
                 imageLocation = getClass().getResource("/tray/resources/warning.png");
                 paintHex = "#E23E0A";
                 break;
-
             case ERROR:
                 imageLocation = getClass().getResource("/tray/resources/error.png");
                 paintHex = "#CC0033";
                 break;
-
             case CUSTOM:
                 return;
         }

@@ -97,7 +97,7 @@ public class ChatController implements Initializable {
         Task<HBox> othersMessages = new Task<HBox>() {
             @Override
             public HBox call() throws Exception {
-                Image image = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture().toLowerCase() + ".png").toString());
+                Image image = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture().toLowerCase() + ".jpg").toString());
                 ImageView profileImage = new ImageView(image);
                 profileImage.setFitHeight(32);
                 profileImage.setFitWidth(32);
@@ -110,7 +110,7 @@ public class ChatController implements Initializable {
                 }else {
                     bl6.setText(msg.getName() + ": " + msg.getMsg());
                 }
-                bl6.setBackground(new Background(new BackgroundFill(Color.WHITE,null, null)));
+                bl6.setBackground(new Background(new BackgroundFill(Color.LIGHTPINK, null, null)));
                 HBox x = new HBox();
                 bl6.setBubbleSpec(BubbleSpec.FACE_LEFT_CENTER);
                 x.getChildren().addAll(profileImage, bl6);
@@ -169,7 +169,7 @@ public class ChatController implements Initializable {
     }
 
     public void setImageLabel() throws IOException {
-        this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/dominic.png").toString()));
+        this.userImageView.setImage(new Image(getClass().getClassLoader().getResource("images/image.jpg").toString()));
     }
 
     public void setOnlineLabel(String usercount) {
@@ -192,9 +192,9 @@ public class ChatController implements Initializable {
         Platform.runLater(() -> {
             Image profileImg = new Image(getClass().getClassLoader().getResource("images/" + msg.getPicture().toLowerCase() +".png").toString(),50,50,false,false);
             TrayNotification tray = new TrayNotification();
-            tray.setTitle("A new user has joined!");
-            tray.setMessage(msg.getName() + " has joined the JavaFX Chatroom!");
-            tray.setRectangleFill(Paint.valueOf("#2C3E50"));
+            tray.setTitle("新用户加入!");
+            tray.setMessage(msg.getName() + " 已加入JavaFX聊天室!");
+            tray.setRectangleFill(Paint.valueOf("#FFB6C1"));
             tray.setAnimationType(AnimationType.POPUP);
             tray.setImage(profileImg);
             tray.showAndDismiss(Duration.seconds(5));
@@ -228,8 +228,7 @@ public class ChatController implements Initializable {
             public HBox call() throws Exception {
                 BubbledLabel bl6 = new BubbledLabel();
                 bl6.setText(msg.getMsg());
-                bl6.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE,
-                        null, null)));
+                bl6.setBackground(new Background(new BackgroundFill(Color.PINK, null, null)));
                 HBox x = new HBox();
                 bl6.setBubbleSpec(BubbleSpec.FACE_BOTTOM);
                 x.setAlignment(Pos.CENTER);

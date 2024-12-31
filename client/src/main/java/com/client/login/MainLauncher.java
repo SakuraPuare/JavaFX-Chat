@@ -18,7 +18,7 @@ public class MainLauncher extends Application {
         primaryStageObj = primaryStage;
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("views/LoginView.fxml"));
         primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setTitle("Socket Chat : Client version 0.3");
+        primaryStage.setTitle("Socket聊天: 客户端版本 0.3");
         primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResource("images/plug.png").toString()));
         Scene mainScene = new Scene(root, 350, 420);
         mainScene.setRoot(root);

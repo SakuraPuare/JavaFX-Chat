@@ -124,24 +124,12 @@ public class LoginController implements Initializable {
                         case "Default":
                             Defaultview.setVisible(false);
                             break;
-                        case "Dominic":
-                            Dominicview.setVisible(false);
-                            break;
-                        case "Sarah":
-                            Sarahview.setVisible(false);
-                            break;
                     }
                 }
                 if (newPicture != null) {
                     switch (newPicture) {
                         case "Default":
                             Defaultview.setVisible(true);
-                            break;
-                        case "Dominic":
-                            Dominicview.setVisible(true);
-                            break;
-                        case "Sarah":
-                            Sarahview.setVisible(true);
                             break;
                     }
                 }
@@ -208,7 +196,8 @@ public class LoginController implements Initializable {
                 System.out.println("default");
         }
 
-        r1.setFill(Color.web("#F89406"));
+        // pink
+        r1.setFill(Color.web("#FF4081"));
         r1.setOpacity(0.1);
 
         KeyFrame keyFrame = new KeyFrame(Duration.millis(speedOfSqaure * 1000), moveXAxis, moveYAxis);
@@ -234,9 +223,9 @@ public class LoginController implements Initializable {
     public void showErrorDialog(String message) {
         Platform.runLater(()-> {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning!");
+            alert.setTitle("警告!");
             alert.setHeaderText(message);
-            alert.setContentText("Please check for firewall issues and check if the server is running.");
+            alert.setContentText("请检查防火墙设置并确认服务器是否正在运行。");
             alert.showAndWait();
         });
 

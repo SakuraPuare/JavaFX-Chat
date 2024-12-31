@@ -48,7 +48,7 @@
          <children>
             <HBox fx:id="onlineUsersHbox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="217.0" stylesheets="@../styles/ListViewStyle.css">
                <children>
-                  <Label prefHeight="50.0" prefWidth="124.0" text="Online Users:" textAlignment="CENTER" textFill="#fc6747">
+                  <Label prefHeight="50.0" prefWidth="124.0" text="Online Users:" textAlignment="CENTER" textFill="#FF69B4">
                      <font>
                         <Font name="SansSerif Regular" size="14.0" />
                      </font>
@@ -59,7 +59,7 @@
                         <Insets bottom="10.0" />
                      </opaqueInsets>
                   </Label>
-                  <Label fx:id="onlineCountLabel" prefHeight="48.0" prefWidth="94.0" text="0" textFill="#fc6747">
+                  <Label fx:id="onlineCountLabel" prefHeight="48.0" prefWidth="94.0" text="0" textFill="#FF69B4">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -75,17 +75,7 @@
       </VBox>
    </left>
    <top>
-      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #031c30;" BorderPane.alignment="CENTER">
-         <center>
-            <ImageView fitHeight="79.0" fitWidth="522.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-               <image>
-                  <Image url="@../images/fxchat.png" />
-               </image>
-               <BorderPane.margin>
-                  <Insets right="100.0" />
-               </BorderPane.margin>
-            </ImageView>
-         </center>
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #FF69B4;" BorderPane.alignment="CENTER">
          <right>
             <HBox prefHeight="24.0" prefWidth="30.0" stylesheets="@../styles/ButtonStyle.css" BorderPane.alignment="CENTER">
                <children>
@@ -119,7 +109,7 @@
                <children>
                   <ImageView fx:id="userImageView" fitHeight="69.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/default.png" />
+                        <Image url="@../images/image.jpg" />
                      </image>
                      <HBox.margin>
                         <Insets left="10.0" top="10.0" />
@@ -130,7 +120,7 @@
                         <Insets left="10.0" top="30.0" />
                      </HBox.margin>
                      <children>
-                        <Label fx:id="usernameLabel" text="Dominic Heal" textFill="#fa6648">
+                        <Label fx:id="usernameLabel" text="Dominic Heal" textFill="#FF69B4">
                            <font>
                               <Font name="HelveticaNeue Medium" size="14.0" />
                            </font>
